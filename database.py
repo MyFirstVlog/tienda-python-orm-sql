@@ -20,4 +20,10 @@ class User(Model): #Tablas, Model viene de peewee , heredamos
         database = db
         db_table = 'users'
 
+    @classmethod
+    def create_user(cls, _email, _password):
+        # NUESTRO ALGORITMO DE ENCRIPTACION
+        _password = 'cody_' + _password
+        return User.create(email=_email, password=_password)
+
 db.create_tables([User])
