@@ -26,4 +26,16 @@ class User(Model): #Tablas, Model viene de peewee , heredamos
         _password = 'cody_' + _password
         return User.create(email=_email, password=_password)
 
-db.create_tables([User])
+class Product(Model): #Tablas, Model viene de peewee , heredamos 
+    name = TextField()
+    price = TextField()
+    user = ForeignKeyField(User, backref='products') #El backref permitira que un usuario pueda acceder a sus productos, un usuario tiene muchos productos
+    created_at = DateField(default=datetime.datetime.now) 
+
+    class Meta: # Buena practica segun peewee es crear una clase dentro de otra clase para especificar a cual base de datos nos vamos a conectar
+        database = db
+        db_table = 'products'
+
+db.create_tables([User, Product])
+
+#Migraciones permiten modificar la tabla sin tener que borrarla previamente al agregar un atributo nuevo a la tabla
