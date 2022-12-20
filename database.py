@@ -28,10 +28,13 @@ class User(Model): #Tablas, Model viene de peewee , heredamos
 
 class Product(Model): #Tablas, Model viene de peewee , heredamos 
     name = TextField()
-    price = TextField()
+    price = IntegerField()
     user = ForeignKeyField(User, backref='products') #El backref permitira que un usuario pueda acceder a sus productos, un usuario tiene muchos productos
     created_at = DateField(default=datetime.datetime.now) 
 
+    @property
+    def price_format(self):
+        return f"{self.price // 100} doláres"
     class Meta: # Buena practica segun peewee es crear una clase dentro de otra clase para especificar a cual base de datos nos vamos a conectar
         database = db
         db_table = 'products'

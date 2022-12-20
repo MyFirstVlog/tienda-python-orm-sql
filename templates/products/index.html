@@ -32,7 +32,7 @@
                             </div>
                             <span class="inline-block mb-4 text-xs text-gray-500">{{ product.created_at }}</span>
                             <h2 class="mb-4 text-2xl font-semibold font-heading">{{ product.name }}</h2>
-                            <p class="mb-4 text-gray-500 leading-relaxed">{{ product.price_format }} </p>
+                            <p class="mb-4 text-gray-500 leading-relaxed">${{ product.price_format }} </p>
                             <a class="text-lg font-medium text-yellow-500 underline hover:no-underline" href="/products/update/{{ product.id }}">Editar</a>
                             <a class="text-lg font-medium text-red-500 underline hover:no-underline" href="#">Eliminar</a>
                             </div>

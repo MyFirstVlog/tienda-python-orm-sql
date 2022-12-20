@@ -35,7 +35,8 @@ def register():
 def ptoducts():
     _user = User.get(session['user'])
     
-    _products = Product.select().where(Product.user == _user)
+    #_products = Product.select().where(Product.user == _user)
+    _products = _user.products # por la llave foranea previamente configurada con el back ref
 
     return render_template('products/index.html', products=_products) #Con el segundo argumentos hacemos que esta variable pueda ser usada en el html template
 
@@ -52,6 +53,21 @@ def ptoducts_create():
 
 
     return render_template('products/create.html')
+
+@app.route('/products/update/<id>', methods=['GET', 'POST'])
+def products_update(id):
+    print('id', id)
+    _product = Product.get_by_id(id)
+
+    if request.method == 'POST':
+        _product.name = request.form.get('name')
+        _product.price = request.form.get('price')
+        _product.save()
+
+        return redirect('/products')
+
+    print(_product.name)
+    return render_template('products/update.html', product=_product)
 
 #Para ejecutar el server en modo 'watcher'
 if(__name__) == '__main__': #los archivos .py es un modulo, siempre al ejecutar el modulo, python adhiere un atributo __name__ que por defecto pone __main__
